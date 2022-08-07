@@ -1,1 +1,1 @@
-# Riggernometry
+# Triggernometry
