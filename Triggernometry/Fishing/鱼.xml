@@ -1,0 +1,267 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder FFXIVJobFilterEnabled="True" FFXIVJobFilter="131072" Id="b7746a51-edec-4ec3-bf42-a4143b4162c5" Name="捕鱼人" Enabled="true">
+    <Folders>
+      <Folder Id="5a7973c7-ad68-40fc-8b8d-9eef468fefe6" Name="以小钓大" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="以小钓大" Id="7f13a017-d403-4555-9fb2-d089de5b68a2" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="17" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="3" OBSEndPoint="" VariableOp="SetString" VariableName="SmallWith" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="4" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelTrigger" TriggerId="5d7f6f37-2561-40ab-8b34-ede7467d45de" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:SmallWith}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="以小钓大的机会" Id="b2629aca-5dbc-42fd-a089-ee78354e1ad1" RegularExpression="以小钓大的机会">
+            <Actions>
+              <Action OrderNumber="1" OBSEndPoint="" VariableOp="SetString" VariableName="SmallWith" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="4c65e48a-4fd6-4f73-9cbd-1cb5688cc759" Name="提杆" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="提杆" Id="cd281fa7-f931-4cd8-a435-241f88cdc122" RegularExpression="Matcha#(?&lt;tmp1&gt;.*)#chs-FishBite#{&quot;type&quot;:(?&lt;SetHook&gt;.*)}">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="51" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="f115f23f-3065-4806-9be1-5449117b38ad" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="1000">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${SetHook}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="52" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="127e9cce-8925-4d77-a422-0f48c6fb89b7" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="1000">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${SetHook}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+                </Condition>
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="提杆-精准-提钩" Id="f115f23f-3065-4806-9be1-5449117b38ad" RegularExpression="Ocupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="51" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerForce="regexp,conditions" ActionType="KeyPress">
+                <Condition Enabled="true" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="提杆-强力-提钩" Id="127e9cce-8925-4d77-a422-0f48c6fb89b7" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="52" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerForce="regexp,conditions" ActionType="KeyPress">
+                <Condition Enabled="true" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="529ac27c-e455-476c-940d-2f7c54d1f3c7" Name="抛竿" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="抛竿" Id="fd9c2039-e34e-451f-98f9-c4e640b5a475" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="抛竿前时间轴" Id="5d7f6f37-2561-40ab-8b34-ede7467d45de" RegularExpression="08C3::(?&lt;tmp1&gt;(.*)(不经意间|上钩的鱼逃走了|没有钓到任何东西|鱼带着))|0843::(?&lt;tmp2&gt;(.*)(成功钓上了|捕到了))">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="4df4fcf5-be7a-415e-907d-467aa0c1687a" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="200">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="97c2301b-81a7-4319-b2f8-f01bf9ac71bf" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="200">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="3" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="7f13a017-d403-4555-9fb2-d089de5b68a2" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="500">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="4" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="2e3daa49-d13e-41da-83fb-2d901f8a97e2" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="500">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="5" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="b21b08d2-1173-4cfc-a941-b84be4197bc7" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="500">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="6" KeypressType="WindowMessage" KeyPressCode="49" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="fd9c2039-e34e-451f-98f9-c4e640b5a475" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="1000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="ef1e2275-8554-4731-a745-f197b19bc1e6" Name="捕鱼人之计" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="沙利亚克的恩宠" Id="4df4fcf5-be7a-415e-907d-467aa0c1687a" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="17" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="54" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MCGP}" ExpressionTypeL="String" ExpressionR="150" ExpressionTypeR="String" ConditionType="NumericGreater" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:AnglerArt}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+            </Condition>
+          </Trigger>
+          <Trigger Enabled="true" Name="捕鱼人之计消失" Id="3e146d7f-b3c2-40d3-a7f6-eb865a0667dc" RegularExpression="08B0::(?&lt;Playertmp&gt;.*)的“捕鱼人之计”状态效果消失了。">
+            <Actions>
+              <Action OrderNumber="1" OBSEndPoint="" UseTTSTextExpression="Test" VariableOp="SetString" VariableName="AnglerArt" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Player}" ExpressionTypeL="String" ExpressionR="${var:MyPlayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Trigger>
+          <Trigger Enabled="true" Name="捕鱼人之计检测" Id="06e58beb-0762-4aef-a2e0-e4c5d650bcb5" RegularExpression="ADA:捕鱼人之计:9999.00:E0000000::(?&lt;tmp1&gt;.*):(?&lt;Player&gt;.*):0(?&lt;Angler&gt;.*):(?&lt;tmp2&gt;.*):">
+            <Actions>
+              <Action OrderNumber="1" OBSEndPoint="" UseTTSTextExpression="Test" VariableOp="SetString" VariableName="AnglerArt" VariableExpression="${Angler}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${Player}" ExpressionTypeL="String" ExpressionR="${var:MyPlayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                </Condition>
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="4ce7c712-5707-4b3b-a6a9-725c463bd92e" Name="耐心" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="耐心消失" Id="8ee867cd-f2af-4943-a538-61975eb6bd30" RegularExpression="08B0::(?&lt;Player&gt;.*)的“钓上大尺寸的鱼几率提升”状态效果消失了。">
+            <Actions>
+              <Action OrderNumber="1" OBSEndPoint="" VariableOp="SetString" VariableName="Patience" VariableExpression="0" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="耐心检测" Id="ac4ca55e-84f9-4c36-969c-eb0ce9c8043f" RegularExpression="08AE::(?&lt;Player&gt;.*)附加了“钓上大尺寸的鱼几率提升”效果。">
+            <Actions>
+              <Action OrderNumber="1" OBSEndPoint="" VariableOp="SetString" VariableName="Patience" VariableExpression="1" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="耐心II" Id="9b9e3c1d-27ad-4f8e-b09d-1110dae12966" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="17" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="51" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="3" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="CancelTrigger" TriggerId="2e3daa49-d13e-41da-83fb-2d901f8a97e2" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:CurrentGP}" ExpressionTypeL="String" ExpressionR="560" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="耐心I" Id="0b723add-160e-44db-bf56-77e4e7bf92f2" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="17" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="50" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:CurrentGP}" ExpressionTypeL="String" ExpressionR="200" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="耐心" Id="2e3daa49-d13e-41da-83fb-2d901f8a97e2" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="9b9e3c1d-27ad-4f8e-b09d-1110dae12966" TriggerForce="regexp" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="0b723add-160e-44db-bf56-77e4e7bf92f2" TriggerForce="regexp" ActionType="Trigger" ExecutionDelayExpression="50">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="ba57db65-c2b8-436c-bee8-eb135b0a03ca" Name="强心剂HQ" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="强心剂" Id="97c2301b-81a7-4319-b2f8-f01bf9ac71bf" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="54" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="cffabb48-cffb-4a40-8583-428ac1799b1d" TriggerForce="regexp" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MCGP}" ExpressionTypeL="String" ExpressionR="350" ExpressionTypeR="String" ConditionType="NumericGreater" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="强心剂CD" Id="cffabb48-cffb-4a40-8583-428ac1799b1d" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="DisableTrigger" TriggerId="97c2301b-81a7-4319-b2f8-f01bf9ac71bf" ActionType="Trigger">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerOp="EnableTrigger" TriggerId="97c2301b-81a7-4319-b2f8-f01bf9ac71bf" ActionType="Trigger" ExecutionDelayExpression="216*1000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="aa52de7c-2493-4be0-a480-06dd3fd2200e" Name="撒饵" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="撒饵" Id="b21b08d2-1173-4cfc-a941-b84be4197bc7" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="53" KeyPressWindow="最终幻想XIV" OBSEndPoint="" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="KeyPress">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:CurrentGP}" ExpressionTypeL="String" ExpressionR="100" ExpressionTypeR="String" ConditionType="NumericGreaterEqual" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
+    <Triggers />
+  </ExportedFolder>
+</TriggernometryExport>
