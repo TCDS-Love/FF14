@@ -1,4 +1,5 @@
-﻿1,GLA,剑术师,剣術士,Tank,TRUE,剑,剑术
+﻿JOB ID,JOB,HP,MP,STR,VIT,DEX,INT
+1,GLA,剑术师,剣術士,Tank,TRUE,剑,剑术
 2,PGL,格斗家,格闘士,Dps,TRUE,格,格斗
 3,MRD,斧术师,斧術士,Tank,TRUE,斧,斧术
 4,LNC,枪术师,槍術士,Dps,TRUE,枪,枪术
