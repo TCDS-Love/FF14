@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="43196277-f183-4633-93cf-1149d4fb2d41" Name="All Triggers" Enabled="true">
+    <Folders>
+      <Folder Id="9257282e-cd0f-4c28-90e1-16c6ef51ce87" Name="数据表格获取" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="levelmodifiers" Id="416fe7d8-1dca-49b6-8183-bdec86d4ad93" RegularExpression=".^" PrevActions="Interrupt" PeriodRefire="Deny" RefirePeriodExpression="86400000">
+            <Actions>
+              <Action OrderNumber="1" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://${pvar:codesource}/main/Triggernometry/source/database/levelmodifiers.csv" DiskFileOpVar="levelmodifiers" DiskPersist="True" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="DiskFile">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="joblist" Id="83b3de71-2531-4c24-af3e-5c89402abb59" RegularExpression=".^" PrevActions="Interrupt" PeriodRefire="Deny" RefirePeriodExpression="86400000">
+            <Actions>
+              <Action OrderNumber="1" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://${pvar:codesource}/main/Triggernometry/source/database/joblist.csv" DiskFileOpVar="joblist" DiskPersist="True" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="DiskFile">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="modifiers" Id="3220dad7-1f9a-4c66-a529-fb053b88e31d" RegularExpression=".^" PrevActions="Interrupt" PeriodRefire="Deny" RefirePeriodExpression="86400000">
+            <Actions>
+              <Action OrderNumber="1" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://${pvar:codesource}/main/Triggernometry/source/database/modifiers.csv" DiskFileOpVar="modifiers" DiskFileCache="True" DiskPersist="True" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="DiskFile">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="9712f0b8-391c-48a5-a87c-a8ec35af3f0b" Name="数据参数" Enabled="true">
+        <Folders>
+          <Folder Id="eb5024b4-a22c-41a5-aa3e-d186b8c3d3f7" Name="GCD" Enabled="true">
+            <Folders>
+              <Folder Id="b1aac69d-c3b7-46e4-b1d8-521a70ae5a59" Name="参数" Enabled="true">
+                <Folders />
+                <Triggers>
+                  <Trigger Enabled="true" Name="技能速度参数" Id="a3b41788-fda7-407e-81d0-ec1a5a3097b3" RegularExpression="^.{14} (?:\w+ )0C:">
+                    <Actions>
+                      <Action OrderNumber="1" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetNumeric" VariableName="skillspeed" VariableExpression="(1000+ceiling(130*(${ptvarcl:levelmodifiers[SUB][${_ffxivparty[${_ffxivplayer}].level}]}-${lvar:jobattr[14]})/${ptvarcl:levelmodifiers[DIV][${_ffxivparty[${_ffxivplayer}].level}]}))/1000" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" ExecutionDelayExpression="1000">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                      <Action OrderNumber="2" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="2783e7a8-a399-4c59-a9a5-400659b6fa7f" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="1000">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="*加速速度参数" Id="d7e589d2-77d8-4573-872d-01982d82b777" RegularExpression="^." PeriodRefire="Deny" RefirePeriodExpression="1000">
+                    <Actions>
+                      <Action OrderNumber="1" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetNumeric" VariableName="speedbuff" VariableExpression="floor((100-0)*(100-0)/100)" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                  <Trigger Enabled="true" Name="咏唱速度参数" Id="dee700a6-d94a-4567-871a-1100f7342f15" RegularExpression="^.{14} (?:\w+ )0C:">
+                    <Actions>
+                      <Action OrderNumber="1" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetNumeric" VariableName="spellspeed" VariableExpression="(1000+ceiling(130*(${ptvarcl:levelmodifiers[SUB][${_ffxivparty[${_ffxivplayer}].level}]}-${lvar:jobattr[15]})/${ptvarcl:levelmodifiers[DIV][${_ffxivparty[${_ffxivplayer}].level}]}))/1000" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" ExecutionDelayExpression="1000">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                      <Action OrderNumber="2" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" TextAuraFontSize="9" TextAuraFontName="宋体" TriggerId="2c57b391-c756-4812-9c1d-05ab9a530dbf" TriggerForce="regexp,conditions" ActionType="Trigger" ExecutionDelayExpression="1000">
+                        <Condition Enabled="false" Grouping="Or" />
+                      </Action>
+                    </Actions>
+                    <Condition Enabled="false" Grouping="Or" />
+                    <Conditions />
+                  </Trigger>
+                </Triggers>
+              </Folder>
+            </Folders>
+            <Triggers>
+              <Trigger Enabled="true" Name="2500基准技速" Id="2783e7a8-a399-4c59-a9a5-400659b6fa7f" RegularExpression="">
+                <Actions>
+                  <Action OrderNumber="1" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetNumeric" VariableName="skgcd2500" VariableExpression="floor(${var:speedbuff}*${var:skillspeed}*2500/1000)*10" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+              <Trigger Enabled="true" Name="2500基准咏速" Id="2c57b391-c756-4812-9c1d-05ab9a530dbf" RegularExpression="">
+                <Actions>
+                  <Action OrderNumber="1" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetNumeric" VariableName="spgcd2500" VariableExpression="floor(${var:speedbuff}*${var:spellspeed}*2500/1000)*10" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </Actions>
+                <Condition Enabled="false" Grouping="Or" />
+                <Conditions />
+              </Trigger>
+            </Triggers>
+          </Folder>
+        </Folders>
+        <Triggers />
+      </Folder>
+    </Folders>
+    <Triggers>
+      <Trigger Enabled="true" Sequential="True" Name="代码源" Id="d2cfcef6-0dcf-40c5-8ae0-7714dbc78600" RegularExpression=".^" PrevActions="Interrupt" PeriodRefire="Deny" RefirePeriodExpression="86400000">
+        <Actions>
+          <Action OrderNumber="1" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetString" VariableName="codesource" VariableExpression="raw.githubusercontent.com/TCDS-Love/Final-Fantasy-XIV" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" Enabled="False" ActionType="Variable" Description="----------GitHub源----------" DescriptionOverride="True">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" OBSEndPoint="ws://${_const[OBSWebsocketEndpoint]}:${_const[OBSWebsocketPort]}" OBSPassword="${_const[OBSWebsocketPassword]}" VariableOp="SetString" VariableName="codesource" VariableExpression="gitee.com/TCDS-Love/Final-Fantasy-XIV/raw" VariablePersist="True" TextAuraFontSize="9" TextAuraFontName="宋体" ActionType="Variable" Description="----------Gitee 源----------" DescriptionOverride="True">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
