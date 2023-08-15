@@ -1,0 +1,429 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder FFXIVJobFilterEnabled="True" FFXIVJobFilter="131072" Id="7b6e7628-0414-4b7d-b7b9-7968abb4c16d" Name="捕鱼人" Enabled="true">
+    <Folders>
+      <Folder Id="fb98421e-7c27-407f-8d24-37364b2b12be" Name="耐久" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="耐久没了" Id="684514b8-418e-4ed8-8de6-81d2abeea157" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0839)::(?&lt;line&gt;[^:]*)的耐久度已降到10%以下。(?:$|:)">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Durable" VariableExpression="0" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="耐久有了" Id="fd14689f-5bb3-4826-8e70-181e3ae17561" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0839)::修理好了[^:]+件道具(?:$|:)">
+            <Actions>
+              <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Durable" VariableExpression="1" ActionType="Variable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" LogMessageText="//Cast" LogProcess="True" TriggerId="20f636ac-4bfa-4c5a-9d08-a19fc4fe8c9d" TriggerForce="regexp" ActionType="LogMessage" ExecutionDelayExpression="100">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="维修" Id="1fe82546-fb24-4ce7-bab8-83b86ad12f89" RegularExpression="//Maintenance">
+            <Actions>
+              <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="${var:维修键位}" KeyPressWindow="最终幻想XIV" NamedCallbackName="command" NamedCallbackParam="/gaction 修理" ActionType="NamedCallback" ExecutionDelayExpression="5100">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="102" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="1000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="3" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="1000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="4" KeypressType="WindowMessage" KeyPressCode="100" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="1000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="5" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="1000">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+      <Folder Id="c32cac2d-0f39-48e8-98e0-5843e525f9cf" Name="logs" Enabled="true">
+        <Folders />
+        <Triggers>
+          <Trigger Enabled="true" Name="打印" Id="f5de3118-1feb-4edd-9906-4598663014fb" RegularExpression="Occupy">
+            <Actions>
+              <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e ///////////////////////////////" ActionType="NamedCallback" ExecutionDelayExpression="100">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e 收获的素材有:" ActionType="NamedCallback" ExecutionDelayExpression="100">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${elvar:FishRecord}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" LoopDelayExpression="500" ActionType="Loop">
+                <LoopCondition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${_loopiterator}" ExpressionTypeL="Numeric" ExpressionR="${lvar:FishRecord.size}" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                </LoopCondition>
+                <LoopActions>
+                  <Action OrderNumber="1" NamedCallbackName="command" NamedCallbackParam="/e ${lvar:FishRecord[${numeric:${_loopiterator}+1}]}:${lvar:FishCount[${numeric:${_loopiterator}+1}]}" ActionType="NamedCallback">
+                    <Condition Enabled="false" Grouping="Or" />
+                  </Action>
+                </LoopActions>
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+              <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/e 无法检查目前收获 错误：获得列表获取失败" ActionType="NamedCallback" ExecutionDelayExpression="100">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${elvar:FishRecord}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+            </Actions>
+            <Condition Enabled="false" Grouping="Or" />
+            <Conditions />
+          </Trigger>
+          <Trigger Enabled="true" Name="统计" Id="4fa2c4f4-d1fa-4a57-9ddb-140dab1a99be" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0843)::(?&lt;name&gt;[^:]*)成功钓上了(?&lt;line&gt;[^:]*)（(?&lt;size&gt;[^:]*)星寸）。(?:$|:)">
+            <Actions>
+              <Action OrderNumber="1" ListVariableOp="Set" ListVariableExpressionType="Numeric" ListVariableName="FishCount" ListVariableExpression="0" ListVariableIndex="128" ActionType="ListVariable">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${lvar:FishRecord.indexof(${line})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="2" ListVariableOp="Set" ListVariableExpressionType="Numeric" ListVariableName="FishCount" ListVariableExpression="0" ListVariableIndex="${lvar:FishRecord.size}+1" ActionType="ListVariable">
+                <Condition Enabled="true" Grouping="Or">
+                  <ConditionSingle Enabled="true" ExpressionL="${lvar:FishRecord.indexof(${line})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="3" ListVariableOp="Push" ListVariableName="FishRecord" ListVariableExpression="${line}" ActionType="ListVariable">
+                <Condition Enabled="true" Grouping="And">
+                  <ConditionSingle Enabled="true" ExpressionL="${lvar:FishRecord.indexof(${line})}" ExpressionTypeL="String" ExpressionR="0" ExpressionTypeR="String" ConditionType="NumericEqual" />
+                </Condition>
+              </Action>
+              <Action OrderNumber="4" ListVariableOp="Set" ListVariableExpressionType="Numeric" ListVariableName="FishCount" ListVariableExpression="${lvar:FishCount[${lvar:FishRecord.indexof(${line})}]}+1" ListVariableIndex="${lvar:FishRecord.indexof(${line})}" ActionType="ListVariable" ExecutionDelayExpression="120">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </Actions>
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+            <Conditions />
+          </Trigger>
+        </Triggers>
+      </Folder>
+    </Folders>
+    <Triggers>
+      <Trigger Enabled="true" Name="45D-F" Id="a5d40312-8a70-49a5-a0d5-67df2e4c2082" RegularExpression="(?&lt;timestamp&gt;^.{14}) SystemLogMessage (?&lt;type&gt;29):(?&lt;instance&gt;150001):(?&lt;id&gt;.*(45D|45E|45F)):(?&lt;param0&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)(?:$|:)" Description="45C - 有鱼上钩了！&#xD;&#xA;45D - 不经意间鱼饵被吃掉了……&#xD;&#xA;45E - 不经意间(?)不见了……&#xD;&#xA;45F - 上钩的鱼逃走了……">
+        <Actions>
+          <Action OrderNumber="1" LogMessageText="//Cast" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/ac 抛竿" ActionType="LogMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Durable}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="2" LogMessageText="//Maintenance" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/ac 抛竿" ActionType="LogMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Durable}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="钓场" Id="5418fe8a-1590-4bf7-8b27-064c1a97244f" RegularExpression="(?&lt;timestamp&gt;^.{14}) SystemLogMessage (?&lt;type&gt;29):(?&lt;instance&gt;150001):(?&lt;id&gt;456):(?&lt;param0&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)(?:$|:)">
+        <Actions />
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="提钩" Id="a27c286a-d256-4cac-b963-d308ea67ff1e" RegularExpression="Matcha#(?&lt;version&gt;.*)#chs-FishBite#{&quot;type&quot;:(?&lt;SetHook&gt;.*)}">
+        <Actions>
+          <Action OrderNumber="1" ActionType="Placeholder" ExecutionDelayExpression="100">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/ac 精准提钩" ActionType="NamedCallback">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${SetHook}" ExpressionTypeL="String" ExpressionR="1" ExpressionTypeR="String" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/ac 强力提钩" ActionType="NamedCallback">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${SetHook}" ExpressionTypeL="String" ExpressionR="2" ExpressionTypeR="String" ConditionType="NumericEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${SetHook}" ExpressionTypeL="String" ExpressionR="3" ExpressionTypeR="String" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/ac 提钩" ActionType="NamedCallback" ExecutionDelayExpression="100">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="耐心" Id="0a52acb8-b613-43d6-bd5c-6868ec74c7b1" RegularExpression="(?&lt;timestamp&gt;^.{14}) (?&lt;line&gt;(StatusAdd|StatusRemove)) (?&lt;type&gt;(1A|1E)):(?&lt;effectId&gt;352):(?&lt;effect&gt;钓上大尺寸的鱼几率提升):(?&lt;duration&gt;(144.00|60.00|0.00)):(?&lt;sourceId&gt;[^:]*):(?&lt;source&gt;[^:]*):(?&lt;targetId&gt;[^:]*):(?&lt;target&gt;[^:]*):(?&lt;count&gt;[^:]*):(?&lt;targetMaxHp&gt;[^:]*):(?&lt;sourceMaxHp&gt;[^:]*)(?:$|:)" Description="2FD - 捉放">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Patience" VariableExpression="1" ActionType="Variable">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${duration}" ExpressionTypeL="String" ExpressionR="144.00" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+              <ConditionSingle Enabled="true" ExpressionL="${duration}" ExpressionTypeL="String" ExpressionR="60.00" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="Patience" VariableExpression="0" ActionType="Variable">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${duration}" ExpressionTypeL="String" ExpressionR="0.00" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="捕鱼人之计" Id="5ea4db67-052a-4b3a-aa40-8c2b3d33db8c" RegularExpression="(?&lt;timestamp&gt;^.{14}) (?&lt;line&gt;(StatusAdd|StatusRemove)) (?&lt;type&gt;(1A|1E)):(?&lt;effectId&gt;ADA):(?&lt;effect&gt;捕鱼人之计):(?&lt;duration&gt;(9999.00|0.00)):(?&lt;sourceId&gt;[^:]*):(?&lt;source&gt;[^:]*):(?&lt;targetId&gt;[^:]*):(?&lt;target&gt;[^:]*):(?&lt;count&gt;[^:]*):(?&lt;targetMaxHp&gt;[^:]*):(?&lt;sourceMaxHp&gt;[^:]*)(?:$|:)">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="AnglerArt" VariableExpression="${count}" ActionType="Variable">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${duration}" ExpressionTypeL="String" ExpressionR="9999.00" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="AnglerArt" VariableExpression="0" ActionType="Variable">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${duration}" ExpressionTypeL="String" ExpressionR="0.00" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="45C" Id="862ade31-fc1a-4800-b6f0-a032d485a4e6" RegularExpression="(?&lt;timestamp&gt;^.{14}) SystemLogMessage (?&lt;type&gt;29):(?&lt;instance&gt;150001):(?&lt;id&gt;45C):(?&lt;param0&gt;[^:]*):(?&lt;param1&gt;[^:]*):(?&lt;param2&gt;[^:]*)(?:$|:)" Description="45C - 有鱼上钩了！&#xD;&#xA;45D - 不经意间鱼饵被吃掉了……&#xD;&#xA;45E - 不经意间(?)不见了……&#xD;&#xA;45F - 上钩的鱼逃走了……">
+        <Actions>
+          <Action OrderNumber="0" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="13000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="1" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="4" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="5" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="6" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="7" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="8" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="9" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="10" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="11" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="12" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="13" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="14" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="15" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="16" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="17" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="18" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="19" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="20" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="21" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="22" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="23" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="24" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="25" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="钓上什么" Id="4412a28f-0e52-47a6-a651-edb5be22d280" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0843)::(?&lt;name&gt;[^:]*)成功钓上了(?&lt;line&gt;[^:]*)（(?&lt;size&gt;[^:]*)星寸）。(?:$|:)">
+        <Actions>
+          <Action OrderNumber="1" TriggerOp="CancelTrigger" TriggerId="862ade31-fc1a-4800-b6f0-a032d485a4e6" ActionType="Trigger">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" VariableOp="SetString" VariableName="Fishcatch" VariableExpression="${line}" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" LogMessageText="//Cast" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/ac 抛竿" ActionType="LogMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Durable}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="4" LogMessageText="//Maintenance" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/ac 抛竿" ActionType="LogMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Durable}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+        </Actions>
+        <Condition Enabled="true" Grouping="Or">
+          <ConditionSingle Enabled="true" ExpressionL="${name}" ExpressionTypeL="String" ExpressionR="${_ffxivplayer}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+        </Condition>
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="抛竿" Id="ca3bae8b-1829-474b-bc0e-8c3442c3e679" RegularExpression="//Cast">
+        <Actions>
+          <Action OrderNumber="1" OBSEndPoint="" VariableOp="SetNumeric" VariableName="MaxGP" VariableExpression="${_ffxivparty[${_ffxivplayer}].maxgp}" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" OBSEndPoint="" VariableOp="SetNumeric" VariableName="CurrentGP" VariableExpression="${_ffxivparty[${_ffxivplayer}].currentgp}" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" OBSEndPoint="" VariableOp="SetNumeric" VariableName="DifferGP" VariableExpression="${_ffxivparty[${_ffxivplayer}].maxgp}-${_ffxivparty[${_ffxivplayer}].currentgp}" ActionType="Variable" ExecutionDelayExpression="50">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/ac 沙利亚克的恩宠" ActionType="NamedCallback" ExecutionDelayExpression="200">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:AnglerArt}" ExpressionTypeL="Numeric" ExpressionR="3" ExpressionTypeR="Numeric" ConditionType="NumericGreaterEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:DifferGP}" ExpressionTypeL="Numeric" ExpressionR="200" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/ac 耐心II" ActionType="NamedCallback" ExecutionDelayExpression="500">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:CurrentGP}" ExpressionTypeL="Numeric" ExpressionR="580" ExpressionTypeR="Numeric" ConditionType="NumericGreaterEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Patience}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/ac 拍击水面" ActionType="NamedCallback" ExecutionDelayExpression="500">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionGroup Enabled="true" Grouping="Or">
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[1]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[2]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[3]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[4]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[5]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[6]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[8]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+                <ConditionSingle Enabled="true" ExpressionL="${var:Fishcatch}" ExpressionTypeL="String" ExpressionR="${lvar:UnFish[7]}" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+              </ConditionGroup>
+              <ConditionSingle Enabled="true" ExpressionL="${var:CurrentGP}" ExpressionTypeL="Numeric" ExpressionR="300" ExpressionTypeR="Numeric" ConditionType="NumericGreaterEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Patience}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/ac 以小钓大II" ActionType="NamedCallback" ExecutionDelayExpression="500">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:MoochII}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:CurrentGP}" ExpressionTypeL="Numeric" ExpressionR="400" ExpressionTypeR="Numeric" ConditionType="NumericGreaterEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Patience}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="8" NamedCallbackName="command" NamedCallbackParam="/ac 以小钓大" ActionType="NamedCallback" ExecutionDelayExpression="500">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Mooch}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Patience}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="9" NamedCallbackName="command" NamedCallbackParam="/ac 抛竿" ActionType="NamedCallback" ExecutionDelayExpression="500">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="10" VariableOp="SetNumeric" VariableName="Mooch" VariableExpression="0" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="11" VariableOp="SetNumeric" VariableName="MoochII" VariableExpression="0" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="以小钓大II" Id="15c7e938-8160-4ef3-80c3-61b9c81545d3" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0843)::钓到了能用作“以小钓大II”鱼饵的鱼。(?:$|:)">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="MoochII" VariableExpression="1" ActionType="Variable">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${code}" ExpressionTypeL="String" ExpressionR="0843" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="以小钓大" Id="9820edfd-fad0-472c-a239-c1ecc8fc890d" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0843)::以小钓大的机会！(?:$|:)">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Mooch" VariableExpression="1" ActionType="Variable">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${code}" ExpressionTypeL="String" ExpressionR="0843" ExpressionTypeR="String" ConditionType="StringEqualNocase" />
+            </Condition>
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="拍击水面" Id="dd8799cd-2728-4f22-8d2b-1266475f3df3" RegularExpression="Ouccpy" EditAutofire="True">
+        <Actions>
+          <Action OrderNumber="1" LoopDelayExpression="20" ActionType="Loop">
+            <LoopCondition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${lvar:UnFish.size}" ExpressionTypeL="Numeric" ExpressionR="8" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+            </LoopCondition>
+            <LoopActions>
+              <Action OrderNumber="1" ListVariableOp="Push" ListVariableExpressionType="Numeric" ListVariableName="UnFish" ActionType="ListVariable">
+                <Condition Enabled="false" Grouping="Or" />
+              </Action>
+            </LoopActions>
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="100">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" ListVariableOp="Set" ListVariableName="UnFish" ListVariableExpression="魇鱼" ListVariableIndex="1" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="4" ListVariableOp="Set" ListVariableName="UnFish" ListVariableExpression="不完整菌类987" ListVariableIndex="2" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="5" ListVariableOp="Set" ListVariableName="UnFish" ListVariableIndex="3" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="6" ListVariableOp="Set" ListVariableName="UnFish" ListVariableIndex="4" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="7" ListVariableOp="Set" ListVariableName="UnFish" ListVariableIndex="5" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="8" ListVariableOp="Set" ListVariableName="UnFish" ListVariableIndex="6" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="9" ListVariableOp="Set" ListVariableName="UnFish" ListVariableIndex="7" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="10" ListVariableOp="Set" ListVariableName="UnFish" ListVariableIndex="8" ActionType="ListVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
