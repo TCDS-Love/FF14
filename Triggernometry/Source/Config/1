@@ -1,0 +1,12 @@
+/macrolock
+/ac "坚信" <wait.3>
+/ac "长期俭约" <wait.2>
+/ac "坯料加工" <wait.3>
+/ac "坯料加工" <wait.3>
+/ac "坯料制作" <wait.3>
+/ac "坯料加工" <wait.3>
+/ac "坯料加工" <wait.3>
+/ac "坯料加工" <wait.3>
+/ac "比尔格的祝福" <wait.3>
+/ac "坯料制作" <wait.3>
+/echo 宏 #1 已完成！<se.14>
