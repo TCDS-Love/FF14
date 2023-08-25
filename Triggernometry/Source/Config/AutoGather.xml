@@ -1,0 +1,404 @@
+<?xml version="1.0"?>
+<TriggernometryExport Version="1">
+  <ExportedFolder Id="004a00ba-ab1f-4a96-977f-dca2c8c2979f" Name="Test1" Enabled="true">
+    <Folders />
+    <Triggers>
+      <Trigger Enabled="true" Name="坐标" Id="f2b95e9d-55f2-4eaf-ad41-45f63438286f" RegularExpression="//设置地点">
+        <Actions>
+          <Action OrderNumber="1" ListVariableOp="Set" ListVariableExpressionType="Numeric" ListVariableName="FishCount" ListVariableExpression="0" ListVariableIndex="128" TableVariableOp="Set" TableVariableName="Pos" TableVariableExpression="${_ffxivparty[${_ffxivplayer}].x}" TableVariableX="1" TableVariableY="${tvar:Pos.height}+1" ActionType="TableVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" ListVariableOp="Set" ListVariableExpressionType="Numeric" ListVariableName="FishCount" ListVariableExpression="0" ListVariableIndex="128" TableVariableOp="Set" TableVariableName="Pos" TableVariableExpression="${_ffxivparty[${_ffxivplayer}].y}" TableVariableX="2" TableVariableY="${tvar:Pos.height}" ActionType="TableVariable" ExecutionDelayExpression="10">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/e 坐标${tvar:Pos.height} X:${tvar:Pos[1][${tvar:Pos.height}]} Y:${tvar:Pos[2][${tvar:Pos.height}]}" ActionType="NamedCallback" ExecutionDelayExpression="500">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="初始化" Id="366dc77c-2b1f-4313-80d5-3de2ec5c3e97" RegularExpression="//初始化">
+        <Actions>
+          <Action OrderNumber="1" TableVariableName="Pos" ActionType="TableVariable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" VariableName="Site" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="寻路点设置" Id="73cc529b-4555-4f6a-93b0-79415abad2ab" RegularExpression="//寻路点(?&lt;Pos&gt;\d)">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Site" VariableExpression="${Pos}" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/e 寻路点${Pos}设置完毕" ActionType="NamedCallback" ExecutionDelayExpression="500">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="false" Name="循环时钟" Id="5d4412d6-6a4d-40d7-90ad-81b9ab645908" RegularExpression="//Cyclic" PrevActions="Interrupt" PrevActionsRefire="Deny" PeriodRefire="Deny">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Pos-X" VariableExpression="${tvar:Pos[1][${var:Site}]}-${_ffxivparty[${_ffxivplayer}].x}" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" VariableOp="SetNumeric" VariableName="Pos-Y" VariableExpression="${tvar:Pos[2][${var:Site}]}-${_ffxivparty[${_ffxivplayer}].y}" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" VariableOp="SetNumeric" VariableName="Pos-P" VariableExpression="distance(${_ffxivparty[${_ffxivplayer}].x},${_ffxivparty[${_ffxivplayer}].y},${tvar:Pos[1][${var:Site}]},${tvar:Pos[2][${var:Site}]})" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="4" VariableOp="SetNumeric" VariableName="Site" VariableExpression="${var:Site}+1" ActionType="Variable">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Site}" ExpressionTypeL="Numeric" ExpressionR="${tvar:Pos.height}" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Pos-P}" ExpressionTypeL="Numeric" ExpressionR="30" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Collected}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="5" VariableOp="SetNumeric" VariableName="Site" VariableExpression="1" ActionType="Variable">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Site}" ExpressionTypeL="Numeric" ExpressionR="${tvar:Pos.height}" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Pos-P}" ExpressionTypeL="Numeric" ExpressionR="30" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Collected}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="6" ActionType="Placeholder" ExecutionDelayExpression="100">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="7" VariableOp="SetNumeric" VariableName="Collected" VariableExpression="0" ActionType="Variable">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Collected}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericEqual" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="8" LogMessageText="//Direction" LogProcess="True" ActionType="LogMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Pos-P}" ExpressionTypeL="Numeric" ExpressionR="30" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="9" LogMessageText="//Collected" LogProcess="True" ActionType="LogMessage">
+            <Condition Enabled="true" Grouping="And">
+              <ConditionSingle Enabled="true" ExpressionL="${var:Pos-P}" ExpressionTypeL="Numeric" ExpressionR="30" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Direction}" ExpressionTypeL="Numeric" ExpressionR="1" ExpressionTypeR="Numeric" ConditionType="NumericNotEqual" />
+              <ConditionSingle Enabled="true" ExpressionL="${var:Collected}" ExpressionTypeL="Numeric" ExpressionR="2" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+            </Condition>
+          </Action>
+          <Action OrderNumber="10" LogMessageText="//Cyclic" LogProcess="True" NamedCallbackName="command" NamedCallbackParam="/e //Cyclic" ActionType="LogMessage" ExecutionDelayExpression="3000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="开始采集" Id="98146dfb-af6b-48b1-ac67-0022c70210f4" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0843):(?&lt;line&gt;[^:]*):(?&lt;name&gt;[^:]*)开始了(?&lt;Task&gt;(割草))作业。(?:$|:)">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Collected" VariableExpression="${var:Collected}+1" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="4" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="5" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="6" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+      </Trigger>
+      <Trigger Enabled="true" Name="寻路" Id="a44ba66a-7b1f-4e49-82d5-678b641811d2" RegularExpression="//Direction" PrevActionsRefire="Deny">
+        <Actions>
+          <Action OrderNumber="1" VariableOp="SetNumeric" VariableName="Direction" VariableExpression="1" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" ActionType="Placeholder" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" KeypressType="WindowMessage" KeyPressCode="32" KeyPressWindow="最终幻想XIV" Enabled="False" ActionType="KeyPress">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="4" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://raw.githubusercontent.com/TCDS-Love/Final-Fantasy-XIV/main/Triggernometry/source/database/Level_Modifiers.csv" DiskFileOpVar="test" KeypressType="WindowMessage" KeyPressCode="37" KeyPressWindow="最终幻想XIV" ListVariableOp="Insert" ListVariableExpressionType="Numeric" ListVariableName="jobattr" ListVariableExpression="${tmp}" ListVariableIndex="1" VariableOp="SetNumeric" VariableName="1" VariableExpression="${numeric:abs(${var:a})}" TableVariableOp="Copy" WmsgTitle="最终幻想XIV" WmsgCode="256" WmsgWparam="87" ActionType="WindowMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionGroup Enabled="true" Grouping="Or">
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="180" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-180" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+              </ConditionGroup>
+            </Condition>
+          </Action>
+          <Action OrderNumber="5" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://raw.githubusercontent.com/TCDS-Love/Final-Fantasy-XIV/main/Triggernometry/source/database/Level_Modifiers.csv" DiskFileOpVar="test" KeypressType="WindowMessage" KeyPressCode="37" KeyPressWindow="最终幻想XIV" ListVariableOp="Insert" ListVariableExpressionType="Numeric" ListVariableName="jobattr" ListVariableExpression="${tmp}" ListVariableIndex="1" VariableOp="SetNumeric" VariableName="1" VariableExpression="${numeric:abs(${var:a})}" TableVariableOp="Copy" WmsgTitle="最终幻想XIV" WmsgCode="256" WmsgWparam="83" ActionType="WindowMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionGroup Enabled="true" Grouping="Or">
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="180" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-180" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+              </ConditionGroup>
+            </Condition>
+          </Action>
+          <Action OrderNumber="6" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://raw.githubusercontent.com/TCDS-Love/Final-Fantasy-XIV/main/Triggernometry/source/database/Level_Modifiers.csv" DiskFileOpVar="test" KeypressType="WindowMessage" KeyPressCode="37" KeyPressWindow="最终幻想XIV" ListVariableOp="Insert" ListVariableExpressionType="Numeric" ListVariableName="jobattr" ListVariableExpression="${tmp}" ListVariableIndex="1" VariableOp="SetNumeric" VariableName="1" VariableExpression="${numeric:abs(${var:a})}" TableVariableOp="Copy" WmsgTitle="最终幻想XIV" WmsgCode="256" WmsgWparam="188" ActionType="WindowMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionGroup Enabled="true" Grouping="Or">
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-180" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="180" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+              </ConditionGroup>
+            </Condition>
+          </Action>
+          <Action OrderNumber="7" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://raw.githubusercontent.com/TCDS-Love/Final-Fantasy-XIV/main/Triggernometry/source/database/Level_Modifiers.csv" DiskFileOpVar="test" KeypressType="WindowMessage" KeyPressCode="37" KeyPressWindow="最终幻想XIV" ListVariableOp="Insert" ListVariableExpressionType="Numeric" ListVariableName="jobattr" ListVariableExpression="${tmp}" ListVariableIndex="1" VariableOp="SetNumeric" VariableName="1" VariableExpression="${numeric:abs(${var:a})}" TableVariableOp="Copy" WmsgTitle="最终幻想XIV" WmsgCode="256" WmsgWparam="190" ActionType="WindowMessage">
+            <Condition Enabled="true" Grouping="Or">
+              <ConditionGroup Enabled="true" Grouping="Or">
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-180" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="180" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+                <ConditionGroup Enabled="true" Grouping="And">
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-X}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                    <ConditionSingle Enabled="true" ExpressionL="${var:Pos-Y}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                  <ConditionGroup Enabled="true" Grouping="And">
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="-90" ExpressionTypeR="Numeric" ConditionType="NumericGreater" />
+                    <ConditionSingle Enabled="true" ExpressionL="${numeric:radtodeg(${_ffxivparty[${_ffxivplayer}].heading})}" ExpressionTypeL="Numeric" ExpressionR="0" ExpressionTypeR="Numeric" ConditionType="NumericLess" />
+                  </ConditionGroup>
+                </ConditionGroup>
+              </ConditionGroup>
+            </Condition>
+          </Action>
+          <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="${var:Pos-P}/6*900">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="9" VariableOp="SetNumeric" VariableName="Direction" VariableExpression="0" ActionType="Variable">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="10" KeypressType="WindowMessage" KeyPressCode="87" KeyPressWindow="最终幻想XIV" ActionType="KeyPress">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="11" KeypressType="WindowMessage" KeyPressCode="83" KeyPressWindow="最终幻想XIV" ActionType="KeyPress">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="12" KeypressType="WindowMessage" KeyPressCode="188" KeyPressWindow="最终幻想XIV" ActionType="KeyPress">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="13" KeypressType="WindowMessage" KeyPressCode="190" KeyPressWindow="最终幻想XIV" ActionType="KeyPress">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="采集" Id="f9095e63-32cd-495d-993f-acc69ce3985b" RegularExpression="//Collected" PrevActionsRefire="Deny">
+        <Actions>
+          <Action OrderNumber="1" DiskFileOp="ReadCSVIntoTableVariable" DiskFileOpName="https://raw.githubusercontent.com/TCDS-Love/Final-Fantasy-XIV/main/Triggernometry/source/database/Level_Modifiers.csv" DiskFileOpVar="test" KeypressType="WindowMessage" KeyPressCode="37" KeyPressWindow="最终幻想XIV" ListVariableOp="Insert" ListVariableExpressionType="Numeric" ListVariableName="jobattr" ListVariableExpression="${tmp}" ListVariableIndex="1" VariableOp="SetNumeric" VariableName="1" VariableExpression="${numeric:abs(${var:a})}" TableVariableOp="Copy" WmsgTitle="最终幻想XIV" WmsgCode="256" WmsgWparam="37" ActionType="WindowMessage">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="2" NamedCallbackName="command" NamedCallbackParam="/targetnpc" ActionType="NamedCallback" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="3" NamedCallbackName="command" NamedCallbackParam="/targetnpc" ActionType="NamedCallback" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="4" NamedCallbackName="command" NamedCallbackParam="/targetnpc" ActionType="NamedCallback" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="5" NamedCallbackName="command" NamedCallbackParam="/targetnpc" ActionType="NamedCallback" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="6" NamedCallbackName="command" NamedCallbackParam="/targetnpc" ActionType="NamedCallback" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="7" NamedCallbackName="command" NamedCallbackParam="/targetnpc" ActionType="NamedCallback" ExecutionDelayExpression="1000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="8" ActionType="Placeholder" ExecutionDelayExpression="490">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="9" KeypressType="WindowMessage" KeyPressCode="37" KeyPressWindow="最终幻想XIV" ActionType="KeyPress">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="10" NamedCallbackName="command" NamedCallbackParam="/lockon" ActionType="NamedCallback" ExecutionDelayExpression="50">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="11" NamedCallbackName="command" NamedCallbackParam="/automove" ActionType="NamedCallback" ExecutionDelayExpression="50">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="12" ActionType="Placeholder" ExecutionDelayExpression="10000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="13" KeypressType="WindowMessage" KeyPressCode="87" KeyPressWindow="最终幻想XIV" ActionType="KeyPress">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="14" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="15" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="16" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="17" KeypressType="WindowMessage" KeyPressCode="96" KeyPressWindow="最终幻想XIV" ActionType="KeyPress" ExecutionDelayExpression="200">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+          <Action OrderNumber="18" ActionType="Placeholder" ExecutionDelayExpression="100000">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+      <Trigger Enabled="true" Name="结束采集" Id="f34cfb53-0dbe-4890-bc06-9481ba180741" RegularExpression="(?&lt;timestamp&gt;^.{14}) ChatLog (?&lt;type&gt;00):(?&lt;code&gt;0843):(?&lt;line&gt;[^:]*):(?&lt;name&gt;[^:]*)结束了(?&lt;Task&gt;(割草))作业。(?:$|:)">
+        <Actions>
+          <Action OrderNumber="1" TriggerOp="CancelTrigger" TriggerId="f9095e63-32cd-495d-993f-acc69ce3985b" ActionType="Trigger">
+            <Condition Enabled="false" Grouping="Or" />
+          </Action>
+        </Actions>
+        <Condition Enabled="false" Grouping="Or" />
+        <Conditions />
+      </Trigger>
+    </Triggers>
+  </ExportedFolder>
+</TriggernometryExport>
